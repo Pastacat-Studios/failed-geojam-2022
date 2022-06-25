@@ -18,6 +18,9 @@ func _process(delta):
 	var collision = move_and_collide(velocity)
 	if collision:
 		emit_signal("aplayerbullet")
+		if collision.collider.has_signal("hide_bullet"):
+			hide()
+			queue_free()
 	velocity = move_and_slide(velocity)
 	position += velocity
 

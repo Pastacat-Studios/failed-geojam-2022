@@ -2,7 +2,8 @@ extends KinematicBody2D
 var move_direction
 signal enemy
 signal raise_mob_cap
-signal lower_mob_cop
+signal lower_mob_cap
+signal hide_bullet
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -45,7 +46,8 @@ func _process(delta):
 	var collision = move_and_collide(velocity)
 	if collision:
 		if collision.collider.has_signal("aplayerbullet"):
-			emit_signal("lower_mob_cop")
+			emit_signal("lower_mob_cap")
+			emit_signal("hide_bullet")
 			hide()
 			queue_free()
 		emit_signal("enemy")

@@ -183,5 +183,5 @@ shape = SubResource( 6 )
 position = Vector2( 287, -41 )
 
 [connection signal="timeout" from="bulletspawntimer" to="mobspawner" method="_on_bulletspawntimer_timeout"]
-[connection signal="lower_mob_cop" from="enemy1" to="mobspawner" method="_on_enemy1_lower_mob_cop"]
+[connection signal="lower_mob_cap" from="enemy1" to="mobspawner" method="_on_enemy1_lower_mob_cap"]
 [connection signal="raise_mob_cap" from="enemy1" to="mobspawner" method="_on_enemy1_raise_mob_cap"]

@@ -40,5 +40,5 @@ func _on_enemy1_raise_mob_cap():
 	mobcap += 1
 
 
-func _on_enemy1_lower_mob_cop():
+func _on_enemy1_lower_mob_cap():
 	mobcap -= 1
