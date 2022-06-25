@@ -1,6 +1,7 @@
 extends KinematicBody2D
 var moving_right = "false"
 export(PackedScene) var mobs
+var mobcap = 0
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -29,6 +30,15 @@ func _process(delta):
 	position += velocity
 	
 func _on_bulletspawntimer_timeout():
-	var mob = mobs.instance()
-	owner.add_child(mob)
-	mob.position = position
+	if mobcap != 10:
+		var mob = mobs.instance()
+		owner.add_child(mob)
+		mob.position = position
+
+
+func _on_enemy1_raise_mob_cap():
+	mobcap += 1
+
+
+func _on_enemy1_lower_mob_cop():
+	mobcap -= 1

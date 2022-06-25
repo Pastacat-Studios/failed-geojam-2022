@@ -2,6 +2,7 @@ extends KinematicBody2D
 var screen_size
 export(PackedScene) var bullets
 var shooting
+var dead = "false"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -17,12 +18,10 @@ func _process(delta):
 	var bullet = bullets.instance()
 	var velocity = Vector2.ZERO
 	if Input.is_action_just_pressed("shoot"):
-		shooting = "true"
-		#var bulletvelocity = Vector2.ZERO
-		#bulletvelocity.y = $bulletspawner.position.y
-		#bulletvelocity.x = $bulletspawner.position.x
-		owner.add_child(bullet)
-		bullet.transform = $bulletspawner.global_transform
+		if dead == "false":
+			shooting = "true"
+			owner.add_child(bullet)
+			bullet.transform = $bulletspawner.global_transform
 	if Input.is_action_just_released("shoot"):
 		shooting = "false"
 	if Input.is_action_pressed("move_left"):
@@ -31,8 +30,8 @@ func _process(delta):
 		velocity.x += 0.5
 	var collision = move_and_collide(velocity)
 	if collision:
-		print(collision.collider)
 		if collision.collider.has_signal("enemy"):
 			hide()
+			dead = "true"
 	velocity = move_and_slide(velocity)
 	position += velocity
