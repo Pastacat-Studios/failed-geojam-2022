@@ -1,5 +1,6 @@
 extends KinematicBody2D
 var move_direction
+signal enemy
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -40,6 +41,7 @@ func _process(delta):
 			velocity.y -= 0.5
 	var collision = move_and_collide(velocity)
 	if collision:
+		emit_signal("enemy")
 		var move_direction_list = ["down", "up", "right", "left", "diagonal-right-down", "diagonal-left-down", "diagonal-right-up", "diagonal-left-up"]
 		move_direction = move_direction_list[randi() % move_direction_list.size()] #copied from godot fourms lmao
 	velocity = move_and_slide(velocity)

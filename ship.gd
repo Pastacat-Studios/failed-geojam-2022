@@ -29,5 +29,10 @@ func _process(delta):
 		velocity.x -= 0.5
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 0.5
+	var collision = move_and_collide(velocity)
+	if collision:
+		print(collision.collider)
+		if collision.collider.has_signal("enemy"):
+			hide()
 	velocity = move_and_slide(velocity)
 	position += velocity

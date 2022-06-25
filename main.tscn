@@ -76,8 +76,8 @@ shape = SubResource( 2 )
 
 [node name="ship" type="KinematicBody2D" parent="."]
 position = Vector2( 293, 857 )
-collision_layer = 512
-collision_mask = 512
+collision_layer = 2560
+collision_mask = 2560
 script = ExtResource( 1 )
 bullets = ExtResource( 4 )
 
