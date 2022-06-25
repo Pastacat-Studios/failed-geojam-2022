@@ -25,6 +25,7 @@ func _process(delta):
 			moving_right = "false"
 		else:
 			moving_right = "true"
+	velocity = move_and_slide(velocity)
 	position += velocity
 	
 func _on_bulletspawntimer_timeout():
