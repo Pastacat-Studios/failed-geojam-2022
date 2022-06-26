@@ -3,6 +3,8 @@ var screen_size
 export(PackedScene) var bullets
 var shooting
 var dead = "false"
+var save_data = "user://geosave.tres"
+var upgrade_info
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -11,6 +13,10 @@ var dead = "false"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
+	if ResourceLoader.exists(save_data):
+		upgrade_info = ResourceLoader.load(save_data)
+		if upgrade_info is Upgrade_Data:
+			print(upgrade_info.get("upgrade_1_level"))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,8 +26,18 @@ func _process(delta):
 	if Input.is_action_just_pressed("shoot"):
 		if dead == "false":
 			shooting = "true"
-			owner.add_child(bullet)
-			bullet.transform = $bulletspawner.global_transform
+			if upgrade_info is Upgrade_Data:
+				if upgrade_info.get("upgrade_1_level") == 1:
+					owner.add_child(bullet)
+					bullet.transform = $doublebulletspawner1.global_transform
+					owner.add_child(bullet)
+					bullet.transform = $doublebulletspawner2.global_transform
+				else:
+					owner.add_child(bullet)
+					bullet.transform = $bulletspawner.global_transform
+			else:
+				owner.add_child(bullet)
+				bullet.transform = $bulletspawner.global_transform
 	if Input.is_action_just_released("shoot"):
 		shooting = "false"
 	if Input.is_action_pressed("move_left"):

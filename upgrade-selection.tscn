@@ -1,24 +1,102 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://upgrade1.gd" type="Script" id=2]
+[ext_resource path="res://upgrade2.gd" type="Script" id=3]
+[ext_resource path="res://upgrade3.gd" type="Script" id=4]
+[ext_resource path="res://upgrade4.gd" type="Script" id=5]
 
 [node name="upgrade-selection" type="Node2D"]
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="TextureButton" type="TextureButton" parent="."]
-margin_left = 22.0
-margin_top = 43.0
-margin_right = 299.0
-margin_bottom = 313.0
+[node name="upgrade1" type="TextureButton" parent="."]
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 190.0
+margin_bottom = 203.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 1 )
+expand = true
 script = ExtResource( 2 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TextureButton"]
-margin_left = 9.0
-margin_top = 230.0
-margin_right = 186.0
-margin_bottom = 268.0
+[node name="RichTextLabel" type="RichTextLabel" parent="upgrade1"]
+margin_left = 12.0
+margin_top = 216.0
+margin_right = 189.0
+margin_bottom = 254.0
 text = "upgrade 1"
 
-[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_TextureButton_pressed"]
+[node name="upgrade2" type="TextureButton" parent="."]
+process_priority = -1
+margin_left = 398.0
+margin_top = 4.0
+margin_right = 582.0
+margin_bottom = 203.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 1 )
+expand = true
+script = ExtResource( 3 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="upgrade2"]
+margin_left = 12.0
+margin_top = 216.0
+margin_right = 189.0
+margin_bottom = 254.0
+text = "upgrade 2"
+
+[node name="upgrade3" type="TextureButton" parent="."]
+margin_left = 12.0
+margin_top = 372.0
+margin_right = 196.0
+margin_bottom = 571.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 1 )
+expand = true
+script = ExtResource( 4 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="upgrade3"]
+margin_left = 12.0
+margin_top = 216.0
+margin_right = 189.0
+margin_bottom = 254.0
+text = "upgrade 3
+"
+
+[node name="upgrade4" type="TextureButton" parent="."]
+margin_left = 360.0
+margin_top = 355.0
+margin_right = 544.0
+margin_bottom = 554.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 1 )
+expand = true
+script = ExtResource( 5 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="upgrade4"]
+margin_left = 12.0
+margin_top = 216.0
+margin_right = 189.0
+margin_bottom = 254.0
+text = "upgrade 4"
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 155.0
+margin_top = 699.0
+margin_right = 380.0
+margin_bottom = 744.0
+texture_normal = ExtResource( 1 )
+expand = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextureButton"]
+margin_left = 66.0
+margin_top = 55.0
+margin_right = 154.0
+margin_bottom = 74.0
+text = "back 2 game"
+
+[connection signal="pressed" from="upgrade1" to="upgrade1" method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="upgrade2" to="upgrade2" method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="upgrade3" to="upgrade3" method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="upgrade4" to="upgrade4" method="_on_TextureButton_pressed"]
