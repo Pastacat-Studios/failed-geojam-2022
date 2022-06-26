@@ -14,14 +14,16 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+	
 
 
-func _on_TextureButton_pressed():
+func _on_triangle_pressed():
 	if ResourceLoader.exists(save_data):
 		currentupgradedata = ResourceLoader.load(save_data)
 		if currentupgradedata is team_data:
 			print(currentupgradedata.get("team"))
-	var upgrade_info = Upgrade_Data.new()
+	var upgrade_info = team_data.new()
 	upgrade_info.team = "triangle"
 	var result = ResourceSaver.save(save_data, upgrade_info)
 	assert(result == OK)
+	get_tree().change_scene("res://main.tscn")

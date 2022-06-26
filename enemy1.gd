@@ -5,6 +5,8 @@ signal raise_mob_cap
 signal lower_mob_cap
 signal hide_bullet
 var save_data = "user://geoscore.tres"
+var team_data = "user://geoteam.tres"
+var teamstuff
 var upgrade_info
 
 # Declare member variables here. Examples:
@@ -18,6 +20,12 @@ func _ready():
 	randomize()
 	var move_direction_list = ["down", "diagonal-right-down", "diagonal-left-down"]
 	move_direction = move_direction_list[randi() % move_direction_list.size()]
+	if ResourceLoader.exists(team_data):
+		teamstuff = ResourceLoader.load(team_data)
+		if teamstuff.get("team") == "triangle":
+			$AnimatedSprite.animation = "enemyhexa"
+		else:
+			$AnimatedSprite.animation = "enemytri"
 	
 
 

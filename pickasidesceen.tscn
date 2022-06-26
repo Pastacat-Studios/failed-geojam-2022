@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://triangle.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://assets/playerhexa.png" type="Texture" id=2]
 [ext_resource path="res://hexagone.gd" type="Script" id=3]
+[ext_resource path="res://assets/space bg.png" type="Texture" id=4]
+[ext_resource path="res://assets/playertri.png" type="Texture" id=5]
 
 [node name="pickasidesceen" type="Node2D"]
 
@@ -11,7 +13,7 @@ margin_left = 44.0
 margin_top = 327.0
 margin_right = 183.0
 margin_bottom = 465.0
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 5 )
 expand = true
 script = ExtResource( 1 )
 
@@ -30,3 +32,12 @@ margin_top = 38.0
 margin_right = 533.0
 margin_bottom = 78.0
 text = "pick a team"
+
+[node name="SpaceBg" type="Sprite" parent="."]
+position = Vector2( 289.5, 484 )
+scale = Vector2( 1.34167, 1 )
+z_index = -1
+texture = ExtResource( 4 )
+
+[connection signal="pressed" from="triangle" to="triangle" method="_on_triangle_pressed"]
+[connection signal="pressed" from="hexagone" to="hexagone" method="_on_hexagone_pressed"]

@@ -5,7 +5,9 @@ export(PackedScene) var bullets2
 var shooting
 var dead = "false"
 var save_data = "user://geosave.tres"
+var team_data = "user://geoteam.tres"
 var upgrade_info
+var teamstuff
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -18,6 +20,12 @@ func _ready():
 		upgrade_info = ResourceLoader.load(save_data)
 		if upgrade_info is Upgrade_Data:
 			print(upgrade_info.get("upgrade_1_level"))
+	if ResourceLoader.exists(team_data):
+		teamstuff = ResourceLoader.load(team_data)
+		if teamstuff.get("team") == "triangle":
+			$AnimatedSprite.animation = "playertri"
+		else:
+			$AnimatedSprite.animation = "playerhexa"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

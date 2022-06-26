@@ -8,6 +8,8 @@ var hits
 var save_data = "user://geoscore.tres"
 var upgrade_info
 export(PackedScene) var bullet
+var team_data = "user://geoteam.tres"
+var teamstuff
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -20,6 +22,12 @@ func _ready():
 	randomize()
 	var move_direction_list = ["down", "diagonal-right-down", "diagonal-left-down"]
 	move_direction = move_direction_list[randi() % move_direction_list.size()]
+	if ResourceLoader.exists(team_data):
+		teamstuff = ResourceLoader.load(team_data)
+		if teamstuff.get("team") == "triangle":
+			$AnimatedSprite.animation = "enemyhexa"
+		else:
+			$AnimatedSprite.animation = "enemytri"
 	
 
 

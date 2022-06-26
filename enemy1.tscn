@@ -1,13 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://assets/enemytri.png" type="Texture" id=1]
 [ext_resource path="res://enemy1.gd" type="Script" id=2]
+[ext_resource path="res://assets/enemyhexa.png" type="Texture" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "default",
+"name": "enemytri",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "enemyhexa",
 "speed": 5.0
 } ]
 
@@ -21,6 +27,7 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
+animation = "enemyhexa"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.5, -0.5 )
