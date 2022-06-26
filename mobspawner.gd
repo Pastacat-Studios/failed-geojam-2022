@@ -5,7 +5,7 @@ export(PackedScene) var boss
 var mobcap = 0
 var save_data = "user://geoscore.tres"
 var upgrade_info
-
+var bossspawned = "false"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -13,19 +13,36 @@ var upgrade_info
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hide() # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
 	if ResourceLoader.exists(save_data):
 		upgrade_info = ResourceLoader.load(save_data)
 		if upgrade_info is score_data:
 			print(upgrade_info.get("score"))
-	if upgrade_info.get("score") == 5000:
-		var bossed = boss.instance()
-		owner.add_child(bossed)
-		bossed.position = position
+		else:
+			var upgrade_info = score_data.new()
+			upgrade_info.score = 0
+			var result = ResourceSaver.save(save_data, upgrade_info)
+			assert(result == OK)
+			upgrade_info = ResourceLoader.load(save_data)
+			print(upgrade_info.get("score"))
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	#if ResourceLoader.exists(save_data):
+	#	upgrade_info = ResourceLoader.load(save_data)
+	#	if upgrade_info is score_data:
+	#		print(upgrade_info.get("score"))
+	#	else:
+	#		var upgrade_info = score_data.new()
+	#		upgrade_info.score = 0
+	#		var result = ResourceSaver.save(save_data, upgrade_info)
+	#		assert(result == OK)
+	#		upgrade_info = ResourceLoader.load(save_data)
+	#		print(upgrade_info.get("score"))
+	#if upgrade_info.get("score") == 5000:
+		#var bossed = boss.instance()
+		#owner.add_child(bossed)
+		#bossed.position = position
 	var velocity = Vector2.ZERO
 	if moving_right == "true":
 		velocity.x -= 0.03
@@ -41,7 +58,7 @@ func _process(delta):
 	position += velocity
 	
 func _on_bulletspawntimer_timeout():
-	if upgrade_info.get("score") < 5000:
+	if bossspawned == "false":
 		var mob = mobs.instance()
 		owner.add_child(mob)
 		mob.position = position
@@ -53,3 +70,10 @@ func _on_enemy1_raise_mob_cap():
 
 func _on_enemy1_lower_mob_cap():
 	mobcap -= 1
+
+
+func _on_bossspawntimer_timeout():
+	var bossed = boss.instance()
+	owner.add_child(bossed)
+	bossed.position = position
+	bossspawned = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://ship.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://enemybullet.tscn" type="PackedScene" id=7]
 [ext_resource path="res://enemy1.tscn" type="PackedScene" id=8]
 [ext_resource path="res://bullet2.tscn" type="PackedScene" id=9]
+[ext_resource path="res://death-label.gd" type="Script" id=10]
+[ext_resource path="res://boss.tscn" type="PackedScene" id=11]
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -51,9 +53,6 @@ extents = Vector2( 22, 21.5 )
 
 [node name="main" type="Node2D"]
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 bullets = ExtResource( 7 )
 
 [node name="topblock" type="KinematicBody2D" parent="."]
@@ -177,6 +176,7 @@ __meta__ = {
 "_edit_group_": true
 }
 mobs = ExtResource( 8 )
+boss = ExtResource( 11 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="mobspawner"]
 position = Vector2( 14.25, 12.625 )
@@ -190,6 +190,11 @@ position = Vector2( 3, 33 )
 position = Vector2( 16, 11 )
 shape = SubResource( 6 )
 
+[node name="bossspawntimer" type="Timer" parent="mobspawner"]
+wait_time = 500.0
+one_shot = true
+autostart = true
+
 [node name="enemy1" parent="." instance=ExtResource( 8 )]
 position = Vector2( 287, -41 )
 
@@ -199,14 +204,13 @@ margin_top = 253.0
 margin_right = 465.0
 margin_bottom = 293.0
 text = "YOU DIED LMAO"
+script = ExtResource( 10 )
 
-[node name="scorelabel" type="RichTextLabel" parent="."]
-margin_left = 469.0
-margin_top = 7.0
-margin_right = 601.0
-margin_bottom = 48.0
+[node name="scorepos" type="Position2D" parent="."]
+position = Vector2( 523, 23 )
 
 [connection signal="timeout" from="ship/shootcooldown" to="ship" method="_on_shootcooldown_timeout"]
 [connection signal="timeout" from="bulletspawntimer" to="mobspawner" method="_on_bulletspawntimer_timeout"]
+[connection signal="timeout" from="mobspawner/bossspawntimer" to="mobspawner" method="_on_bossspawntimer_timeout"]
 [connection signal="lower_mob_cap" from="enemy1" to="mobspawner" method="_on_enemy1_lower_mob_cap"]
 [connection signal="raise_mob_cap" from="enemy1" to="mobspawner" method="_on_enemy1_raise_mob_cap"]

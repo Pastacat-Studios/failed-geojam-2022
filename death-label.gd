@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends RichTextLabel
 
 
 # Declare member variables here. Examples:
@@ -8,15 +8,9 @@ extends KinematicBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var velocity = Vector2.ZERO
-	velocity.y += 0.5
-	velocity = move_and_slide(velocity)
-	position += velocity
-
-func _on_VisibilityNotifier2D_screen_exited():
-	queue_free()
+#func _process(delta):
+#	pass

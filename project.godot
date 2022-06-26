@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://scoredata.gd"
 }, {
 "base": "Resource",
+"class": "team_data",
+"language": "GDScript",
+"path": "res://team.gd"
+}, {
+"base": "Resource",
 "class": "upgrade_data",
 "language": "GDScript",
 "path": "res://save_manager.gd"
@@ -27,6 +32,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Upgrade_Data": "",
 "score_data": "",
+"team_data": "",
 "upgrade_data": ""
 }
 
