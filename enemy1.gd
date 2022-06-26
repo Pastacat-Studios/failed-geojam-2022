@@ -4,6 +4,8 @@ signal enemy
 signal raise_mob_cap
 signal lower_mob_cap
 signal hide_bullet
+var save_data = "user://geoscore.tres"
+var upgrade_info
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -21,6 +23,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if ResourceLoader.exists(save_data):
+		upgrade_info = ResourceLoader.load(save_data)
+		if upgrade_info is score_data:
+			print(upgrade_info.get("score"))
 	var velocity = Vector2.ZERO
 	match move_direction:
 		"down":
@@ -48,6 +54,8 @@ func _process(delta):
 		if collision.collider.has_signal("aplayerbullet"):
 			emit_signal("lower_mob_cap")
 			emit_signal("hide_bullet")
+			var upgrade_info = score_data.new()
+			upgrade_info.score = upgrade_info.get("score") + 100
 			hide()
 			queue_free()
 		emit_signal("enemy")

@@ -1,5 +1,7 @@
 extends KinematicBody2D
 signal aplayerbullet
+var save_data = "user://geosave.tres"
+var upgrade_info
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -8,7 +10,10 @@ signal aplayerbullet
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	if ResourceLoader.exists(save_data):
+		upgrade_info = ResourceLoader.load(save_data)
+		if upgrade_info is Upgrade_Data:
+			print(upgrade_info.get("upgrade_1_level"))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,8 +24,11 @@ func _process(delta):
 	if collision:
 		emit_signal("aplayerbullet")
 		if collision.collider.has_signal("hide_bullet"):
-			hide()
-			queue_free()
+			if upgrade_info.get("upgrade_4_level") == 1:
+				pass
+			else:
+				hide()
+				queue_free()
 	velocity = move_and_slide(velocity)
 	position += velocity
 

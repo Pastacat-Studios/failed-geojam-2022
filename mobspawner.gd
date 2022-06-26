@@ -1,7 +1,10 @@
 extends KinematicBody2D
 var moving_right = "false"
 export(PackedScene) var mobs
+export(PackedScene) var boss
 var mobcap = 0
+var save_data = "user://geoscore.tres"
+var upgrade_info
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -10,11 +13,19 @@ var mobcap = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	show() # Replace with function body.
+	hide() # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if ResourceLoader.exists(save_data):
+		upgrade_info = ResourceLoader.load(save_data)
+		if upgrade_info is score_data:
+			print(upgrade_info.get("score"))
+	if upgrade_info.get("score") == 5000:
+		var bossed = boss.instance()
+		owner.add_child(bossed)
+		bossed.position = position
 	var velocity = Vector2.ZERO
 	if moving_right == "true":
 		velocity.x -= 0.03
@@ -30,7 +41,7 @@ func _process(delta):
 	position += velocity
 	
 func _on_bulletspawntimer_timeout():
-	if mobcap != 10:
+	if upgrade_info.get("score") < 5000:
 		var mob = mobs.instance()
 		owner.add_child(mob)
 		mob.position = position

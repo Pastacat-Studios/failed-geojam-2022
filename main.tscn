@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://ship.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://mobspawner.gd" type="Script" id=6]
 [ext_resource path="res://enemybullet.tscn" type="PackedScene" id=7]
 [ext_resource path="res://enemy1.tscn" type="PackedScene" id=8]
+[ext_resource path="res://bullet2.tscn" type="PackedScene" id=9]
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -80,6 +81,7 @@ collision_layer = 2560
 collision_mask = 2560
 script = ExtResource( 1 )
 bullets = ExtResource( 4 )
+bullets2 = ExtResource( 9 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="ship"]
 position = Vector2( 2, 0 )
@@ -97,6 +99,9 @@ position = Vector2( -30, -48 )
 
 [node name="doublebulletspawner2" type="Position2D" parent="ship"]
 position = Vector2( 32, -47 )
+
+[node name="shootcooldown" type="Timer" parent="ship"]
+wait_time = 3.0
 
 [node name="teleportactorleft" type="KinematicBody2D" parent="."]
 collision_layer = 512
@@ -188,6 +193,20 @@ shape = SubResource( 6 )
 [node name="enemy1" parent="." instance=ExtResource( 8 )]
 position = Vector2( 287, -41 )
 
+[node name="death-label" type="RichTextLabel" parent="."]
+margin_left = 187.0
+margin_top = 253.0
+margin_right = 465.0
+margin_bottom = 293.0
+text = "YOU DIED LMAO"
+
+[node name="scorelabel" type="RichTextLabel" parent="."]
+margin_left = 469.0
+margin_top = 7.0
+margin_right = 601.0
+margin_bottom = 48.0
+
+[connection signal="timeout" from="ship/shootcooldown" to="ship" method="_on_shootcooldown_timeout"]
 [connection signal="timeout" from="bulletspawntimer" to="mobspawner" method="_on_bulletspawntimer_timeout"]
 [connection signal="lower_mob_cap" from="enemy1" to="mobspawner" method="_on_enemy1_lower_mob_cap"]
 [connection signal="raise_mob_cap" from="enemy1" to="mobspawner" method="_on_enemy1_raise_mob_cap"]
